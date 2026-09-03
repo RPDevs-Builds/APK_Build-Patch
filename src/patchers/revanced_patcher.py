@@ -119,7 +119,7 @@ class ReVancedPatcher:
         patches_ver = app_cfg.get("patches_version", "latest")
 
         cli_path = Path(cli_jar) if cli_jar else self.get_github_release_asset(cli_src, cli_ver, r"(cli|desktop).*\.jar$")
-        patches_path = Path(patches_jar) if patches_jar else self.get_github_release_asset(patches_src, patches_ver, r"(patches|bundle).*\.(jar|rvp)$")
+        patches_path = Path(patches_jar) if patches_jar else self.get_github_release_asset(patches_src, patches_ver, r"(patches|bundle).*\.(jar|rvp|mpp)$")
 
         if not cli_path or not cli_path.exists():
             raise RuntimeError(f"Could not locate ReVanced/Morphe CLI jar from {cli_src}")
@@ -147,11 +147,10 @@ class ReVancedPatcher:
             "-jar",
             str(cli_path),
             "patch",
-            str(ready_stock),
-            "-o",
-            str(patched_apk),
             "-p",
             str(patches_path),
+            "-o",
+            str(patched_apk),
             "--keystore",
             str(self.signer.keystore_path),
             "--keystore-entry-password",
@@ -175,6 +174,9 @@ class ReVancedPatcher:
         if app_cfg.get("patcher_args"):
             extra_args = app_cfg["patcher_args"].split()
             cmd.extend(extra_args)
+
+        # Input APK as final positional argument
+        cmd.append(str(ready_stock))
 
         log_step(f"Executing patcher for {app_name} ({rv_brand})...")
         try:

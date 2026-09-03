@@ -116,17 +116,19 @@ playstore_pkg = "com.reddit.frontpage"
 # TikTok (Morphe & Custom Patches)
 # ------------------------------------------------------------------------------
 [TikTok-Morphe]
-enabled = false
+enabled = true
 app_name = "TikTok"
 pkg_name = "com.zhiliaoapp.musically"
-version = "auto"
+version = "46.2.3"
 arch = "arm64-v8a"
-patches_source = "MorpheApp/morphe-patches"
+patches_source = "icysymmetra/tiktok-patches-for-morphe"
 cli_source = "MorpheApp/morphe-cli"
 rv_brand = "Morphe"
 build_mode = "apk"
 apkmirror_dlurl = "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly"
 uptodown_dlurl = "https://tik-tok-including-musical-ly.en.uptodown.com/android"
+playstore_pkg = "com.zhiliaoapp.musically"
+
 
 # ------------------------------------------------------------------------------
 # Twitter / X (Official ReVanced)
