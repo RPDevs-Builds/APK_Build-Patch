@@ -4,7 +4,7 @@
 
 # Priority order for fetching base APKs when multiple sources are configured
 [priorities]
-order = ["apkmirror", "playstore", "uptodown", "archive", "direct"]
+order = ["playstore", "apkmirror", "uptodown", "archive", "direct"]
 
 [apkmirror]
 base_url = "https://www.apkmirror.com"

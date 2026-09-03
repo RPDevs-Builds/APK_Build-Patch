@@ -92,10 +92,12 @@ class PipelineRunner:
                         resolved_ver = vers[0]
 
                 success = fetcher.download_apk(target_loc, resolved_ver, dest_stock, arch=arch, dpi=dpi)
-                if success and (dest_stock.exists() or dest_stock.with_suffix(".apkm").exists()):
-                    actual_file = dest_stock if dest_stock.exists() else dest_stock.with_suffix(".apkm")
-                    log_success(f"Acquired base APK for {app_name} from {source_key.upper()}")
-                    return actual_file
+                if success:
+                    for ext in [".apk", ".xapk", ".apkm", ".apks"]:
+                        cand = dest_stock.with_suffix(ext)
+                        if cand.exists():
+                            log_success(f"Acquired base APK for {app_name} from {source_key.upper()}: {cand.name}")
+                            return cand
             except Exception as e:
                 log_warn(f"Failed to fetch from {source_key}: {e}")
 

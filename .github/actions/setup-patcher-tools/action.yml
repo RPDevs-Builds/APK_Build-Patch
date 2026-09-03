@@ -16,5 +16,12 @@ runs:
     - name: Ensure Tool Binaries Executable
       shell: bash
       run: |
-        chmod +x bin/aapt2/* bin/htmlq/* bin/toml/* 2>/dev/null || true
-        mkdir -p temp/prebuilts dist/apks
+        mkdir -p bin temp/prebuilts dist/apks
+        if [ ! -f "bin/apkeep" ]; then
+          curl -sL "https://github.com/EFForg/apkeep/releases/download/0.17.0/apkeep-x86_64-unknown-linux-gnu" -o bin/apkeep
+        fi
+        if [ ! -f "bin/APKEditor.jar" ]; then
+          curl -sL "https://github.com/REAndroid/APKEditor/releases/download/V1.4.7/APKEditor-1.4.7.jar" -o bin/APKEditor.jar
+        fi
+        chmod +x bin/apkeep bin/aapt2/* bin/htmlq/* bin/toml/* 2>/dev/null || true
+        echo "$(pwd)/bin" >> $GITHUB_PATH

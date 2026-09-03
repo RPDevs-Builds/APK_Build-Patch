@@ -44,6 +44,8 @@ dist/
 *.log
 !bin/*.jar
 !bin/keystores/*.keystore
+bin/apkeep
+bin/apkeditor.jar
 
 # Local Environment Secrets
 *.env

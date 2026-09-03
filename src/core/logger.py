@@ -16,6 +16,7 @@ custom_theme = Theme({
 })
 
 console = Console(theme=custom_theme)
+stderr_console = Console(stderr=True, theme=custom_theme)
 
 def is_github_actions() -> bool:
     return os.environ.get("GITHUB_ACTIONS") == "true"
@@ -33,14 +34,15 @@ def log_end_step() -> None:
         print("::endgroup::", flush=True)
 
 def log_warn(msg: str) -> None:
-    console.print(f"[warning][!][/warning] {msg}", file=sys.stderr)
+    stderr_console.print(f"[warning][!][/warning] {msg}")
     if is_github_actions():
         print(f"::warning::{msg}", file=sys.stderr, flush=True)
 
 def log_error(msg: str) -> None:
-    console.print(f"[error][✗][/error] {msg}", file=sys.stderr)
+    stderr_console.print(f"[error][✗][/error] {msg}")
     if is_github_actions():
         print(f"::error::{msg}", file=sys.stderr, flush=True)
 
 def log_success(msg: str) -> None:
     console.print(f"[success][✓][/success] {msg}")
+

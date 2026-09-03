@@ -24,19 +24,31 @@ class PlayStoreFetcher(BaseFetcher):
     def _has_gplaycli(self) -> bool:
         return shutil.which("gplaycli") is not None
 
+    def _get_apkeep_bin(self) -> Optional[str]:
+        base_dir = Path(__file__).resolve().parent.parent.parent
+        local_bin = base_dir / "bin" / "apkeep"
+        if local_bin.exists():
+            local_bin.chmod(0o755)
+            return str(local_bin)
+        return shutil.which("apkeep")
+
     def _has_apkeep(self) -> bool:
-        return shutil.which("apkeep") is not None
+        return self._get_apkeep_bin() is not None
 
     def get_latest_versions(self, pkg_name: str) -> List[str]:
-        """Query Google Play Store for latest version code/name."""
-        if self._has_gplaycli() and (self.email or self.config.get("token_dispenser_url")):
+        """Query versions available for package."""
+        apkeep_bin = self._get_apkeep_bin()
+        if apkeep_bin:
             try:
-                cmd = ["gplaycli", "-d", "-p", pkg_name, "--version"]
-                res = run_cmd(cmd, check=False)
+                # apkeep -l -a pkg temp/
+                res = run_cmd([apkeep_bin, "-l", "-a", pkg_name, "temp/"], check=False)
                 if res.returncode == 0 and res.stdout:
-                    return [res.stdout.strip()]
-            except Exception as e:
-                log_warn(f"gplaycli version check failed: {e}")
+                    import re
+                    vers = re.findall(r"(\d+\.\d+(?:\.\d+)?(?:\.\d+)?)", res.stdout)
+                    if vers:
+                        return vers[::-1] # Reverse to have latest first
+            except Exception:
+                pass
         return ["latest"]
 
     def download_apk(
@@ -47,24 +59,30 @@ class PlayStoreFetcher(BaseFetcher):
         arch: str = "all",
         dpi: str = "nodpi",
     ) -> bool:
-        """Download APK from Google Play Store."""
+        """Download APK from Google Play / APKPure via apkeep or gplaycli."""
         dest = Path(dest_path)
         dest.parent.mkdir(parents=True, exist_ok=True)
         
-        # Mode 1: apkeep (Rust-based high speed downloader with anonymous token support)
-        if (self.backend in ("auto", "apkeep")) and self._has_apkeep():
-            log_info(f"Downloading {pkg_name} via apkeep...")
-            out_dir = dest.parent / f"apkeep_{pkg_name}"
+        # Mode 1: apkeep (Rust-based high speed downloader with version pinning support)
+        apkeep_bin = self._get_apkeep_bin()
+        if (self.backend in ("auto", "apkeep")) and apkeep_bin:
+            log_info(f"Downloading {pkg_name} ({version}) via apkeep...")
+            out_dir = dest.parent / f"apkeep_{pkg_name.replace('.', '_')}"
             out_dir.mkdir(parents=True, exist_ok=True)
-            cmd = ["apkeep", "-a", pkg_name, str(out_dir)]
+            
+            target_arg = f"{pkg_name}@{version}" if version and version not in ("auto", "latest") else pkg_name
+            cmd = [apkeep_bin, "-a", target_arg, str(out_dir)]
+            
             try:
                 res = run_cmd(cmd, check=True)
                 # Find downloaded apk or apks
                 apks = list(out_dir.glob("*.apk")) + list(out_dir.glob("*.apkm")) + list(out_dir.glob("*.xapk"))
                 if apks:
-                    shutil.move(str(apks[0]), str(dest))
+                    found_file = apks[0]
+                    target_dest = dest.with_suffix(found_file.suffix)
+                    shutil.move(str(found_file), str(target_dest))
                     shutil.rmtree(out_dir, ignore_errors=True)
-                    log_info(f"Successfully downloaded {pkg_name} via apkeep to {dest}")
+                    log_info(f"Successfully downloaded {pkg_name} via apkeep to {target_dest}")
                     return True
             except Exception as e:
                 log_warn(f"apkeep download failed for {pkg_name}: {e}")
