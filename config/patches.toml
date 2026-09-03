@@ -1,0 +1,143 @@
+# ==============================================================================
+# RPDevs-Builds APK_Build-Patch - Patched Apps Configuration
+# ==============================================================================
+# Global default settings applied to all patch jobs unless overridden per app
+[global]
+compression_level = 9
+parallel_jobs = 1
+default_patches_source = "ReVanced/revanced-patches"
+default_cli_source = "ReVanced/revanced-cli"
+default_patches_version = "latest"
+default_cli_version = "latest"
+default_rv_brand = "ReVanced"
+enable_module_update = true
+remove_rv_integrations_checks = true
+
+# ------------------------------------------------------------------------------
+# YouTube (Official ReVanced)
+# ------------------------------------------------------------------------------
+[YouTube]
+enabled = true
+app_name = "YouTube"
+pkg_name = "com.google.android.youtube"
+version = "auto"
+arch = "all"
+build_mode = "both" # "apk", "module", or "both"
+apkmirror_dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
+archive_dlurl = "https://archive.org/download/jhc-apks/apks/com.google.android.youtube"
+uptodown_dlurl = "https://youtube.en.uptodown.com/android"
+playstore_pkg = "com.google.android.youtube"
+patcher_args = "-e 'Theme' -OdarkThemeBackgroundColor=@android:color/black"
+
+# ------------------------------------------------------------------------------
+# YouTube Music (Official ReVanced)
+# ------------------------------------------------------------------------------
+[YT-Music]
+enabled = true
+app_name = "YT Music"
+pkg_name = "com.google.android.apps.youtube.music"
+version = "auto"
+arch = "arm64-v8a"
+build_mode = "both"
+apkmirror_dlurl = "https://www.apkmirror.com/apk/google-inc/youtube-music"
+archive_dlurl = "https://archive.org/download/jhc-apks/apks/com.google.android.apps.youtube.music"
+uptodown_dlurl = "https://youtube-music.en.uptodown.com/android"
+playstore_pkg = "com.google.android.apps.youtube.music"
+patcher_args = "-e 'Dark theme' -OdarkThemeBackgroundColor=@android:color/black"
+
+# ------------------------------------------------------------------------------
+# YouTube (Morphe Patches)
+# ------------------------------------------------------------------------------
+[YouTube-Morphe]
+enabled = true
+app_name = "YouTube"
+pkg_name = "com.google.android.youtube"
+version = "auto"
+arch = "all"
+patches_source = "MorpheApp/morphe-patches"
+cli_source = "MorpheApp/morphe-cli"
+rv_brand = "Morphe"
+build_mode = "both"
+apkmirror_dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
+archive_dlurl = "https://archive.org/download/jhc-apks/apks/com.google.android.youtube"
+uptodown_dlurl = "https://youtube.en.uptodown.com/android"
+
+# ------------------------------------------------------------------------------
+# YouTube Music (Morphe Patches)
+# ------------------------------------------------------------------------------
+[YT-Music-Morphe]
+enabled = true
+app_name = "YT Music"
+pkg_name = "com.google.android.apps.youtube.music"
+version = "auto"
+arch = "arm64-v8a"
+patches_source = "MorpheApp/morphe-patches"
+cli_source = "MorpheApp/morphe-cli"
+rv_brand = "Morphe"
+build_mode = "both"
+apkmirror_dlurl = "https://www.apkmirror.com/apk/google-inc/youtube-music"
+archive_dlurl = "https://archive.org/download/jhc-apks/apks/com.google.android.apps.youtube.music"
+uptodown_dlurl = "https://youtube-music.en.uptodown.com/android"
+
+# ------------------------------------------------------------------------------
+# YouTube (ReVanced Extended - anddea)
+# ------------------------------------------------------------------------------
+[YouTube-anddea]
+enabled = true
+app_name = "YouTube"
+pkg_name = "com.google.android.youtube"
+version = "auto"
+arch = "all"
+patches_source = "anddea/revanced-patches"
+cli_source = "MorpheApp/morphe-cli"
+rv_brand = "ReVanced anddea"
+build_mode = "both"
+excluded_patches = ["Custom Shorts action buttons", "Force player buttons background"]
+patcher_args = "-e 'Theme' -OdarkThemeBackgroundColor=@android:color/black"
+apkmirror_dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
+archive_dlurl = "https://archive.org/download/jhc-apks/apks/com.google.android.youtube"
+uptodown_dlurl = "https://youtube.en.uptodown.com/android"
+
+# ------------------------------------------------------------------------------
+# Reddit (Official ReVanced)
+# ------------------------------------------------------------------------------
+[Reddit]
+enabled = true
+app_name = "Reddit"
+pkg_name = "com.reddit.frontpage"
+version = "auto"
+arch = "all"
+build_mode = "apk"
+apkmirror_dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
+uptodown_dlurl = "https://reddit-official-app.en.uptodown.com/android"
+playstore_pkg = "com.reddit.frontpage"
+
+# ------------------------------------------------------------------------------
+# TikTok (Morphe & Custom Patches)
+# ------------------------------------------------------------------------------
+[TikTok-Morphe]
+enabled = false
+app_name = "TikTok"
+pkg_name = "com.zhiliaoapp.musically"
+version = "auto"
+arch = "arm64-v8a"
+patches_source = "MorpheApp/morphe-patches"
+cli_source = "MorpheApp/morphe-cli"
+rv_brand = "Morphe"
+build_mode = "apk"
+apkmirror_dlurl = "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly"
+uptodown_dlurl = "https://tik-tok-including-musical-ly.en.uptodown.com/android"
+
+# ------------------------------------------------------------------------------
+# Twitter / X (Official ReVanced)
+# ------------------------------------------------------------------------------
+[Twitter]
+enabled = true
+app_name = "Twitter"
+pkg_name = "com.twitter.android"
+version = "auto"
+arch = "all"
+build_mode = "apk"
+apkmirror_dlurl = "https://www.apkmirror.com/apk/x-corp/twitter"
+uptodown_dlurl = "https://twitter.en.uptodown.com/android"
+playstore_pkg = "com.twitter.android"

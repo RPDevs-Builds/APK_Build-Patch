@@ -1,0 +1,93 @@
+# ==============================================================================
+# RPDevs-Builds APK_Build-Patch - Open Source Repositories to Build
+# ==============================================================================
+# Global default settings for source repo builders
+[global]
+default_java_version = "21"
+default_build_system = "gradle"
+sign_artifacts = true
+zipalign = true
+
+# ------------------------------------------------------------------------------
+# NewPipe (Lightweight YouTube Frontend)
+# ------------------------------------------------------------------------------
+[NewPipe]
+enabled = true
+repo_url = "https://github.com/TeamNewPipe/NewPipe"
+branch = "dev"
+build_system = "gradle"
+java_version = "21"
+gradle_task = "assembleRelease"
+artifact_glob = "app/build/outputs/apk/release/*.apk"
+category = "Media & Streaming"
+description = "A libre lightweight streaming frontend for Android."
+
+# ------------------------------------------------------------------------------
+# Seal (Video/Audio Downloader based on yt-dlp)
+# ------------------------------------------------------------------------------
+[Seal]
+enabled = true
+repo_url = "https://github.com/JunkFood02/Seal"
+branch = "main"
+build_system = "gradle"
+java_version = "21"
+gradle_task = "assembleRelease"
+artifact_glob = "app/build/outputs/apk/release/*.apk"
+category = "Utilities"
+description = "Video/Audio Downloader for Android, based on yt-dlp."
+
+# ------------------------------------------------------------------------------
+# Mihon (Manga Reader)
+# ------------------------------------------------------------------------------
+[Mihon]
+enabled = true
+repo_url = "https://github.com/mihonapp/mihon"
+branch = "main"
+build_system = "gradle"
+java_version = "21"
+gradle_task = "assembleStandardRelease"
+artifact_glob = "app/build/outputs/apk/standard/release/*.apk"
+category = "Comics & Reading"
+description = "Free and open source manga reader for Android."
+
+# ------------------------------------------------------------------------------
+# ViMusic (Music Client for YouTube Music)
+# ------------------------------------------------------------------------------
+[ViMusic]
+enabled = true
+repo_url = "https://github.com/vfsfitvnm/ViMusic"
+branch = "master"
+build_system = "gradle"
+java_version = "17"
+gradle_task = "assembleRelease"
+artifact_glob = "app/build/outputs/apk/release/*.apk"
+category = "Audio & Music"
+description = "An Android application for streaming music from YouTube Music."
+
+# ------------------------------------------------------------------------------
+# RPDev Launcher (RPDevs Organization)
+# ------------------------------------------------------------------------------
+[RPDev-Launcher]
+enabled = true
+repo_url = "https://github.com/RPDevs-Builds/RPDev-Launcher"
+branch = "main"
+build_system = "gradle"
+java_version = "21"
+gradle_task = "assembleRelease"
+artifact_glob = "app/build/outputs/apk/release/*.apk"
+category = "System & Launchers"
+description = "High performance modern privacy launcher with nested folders and widget support."
+
+# ------------------------------------------------------------------------------
+# RPDev Feed (RPDevs Organization)
+# ------------------------------------------------------------------------------
+[RPDev-Feed]
+enabled = true
+repo_url = "https://github.com/RPDevs-Builds/RPDev-Feed"
+branch = "main"
+build_system = "gradle"
+java_version = "21"
+gradle_task = "assembleRelease"
+artifact_glob = "app/build/outputs/apk/release/*.apk"
+category = "System & Launchers"
+description = "Smart context & companion feed engine for Android launchers."

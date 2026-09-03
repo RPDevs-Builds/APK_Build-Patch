@@ -1,0 +1,59 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing & Linters
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+
+# Build Artefacts & Temp
+temp/
+tmp/
+out/
+output/
+dist/
+*.apk
+*.apkm
+*.xapk
+*.apks
+*.idsig
+*.tmp
+*.log
+!bin/*.jar
+!bin/keystores/*.keystore
+
+# Local Environment Secrets
+*.env
+!.env.example
+*.local.toml
+signing.env
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~

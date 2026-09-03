@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPDevs APK Vault & Distribution Portal</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <div class="app-container">
+        <!-- Header -->
+        <header class="hero-header">
+            <div class="hero-badge">⚡ Automated Continuous Deployment</div>
+            <h1 class="hero-title">RPDevs <span class="gradient-text">APK Vault</span></h1>
+            <p class="hero-subtitle">Automated nightly & release builds for ReVanced, Morphe, Root Modules, and Open-Source Android Apps.</p>
+            
+            <div class="repo-links">
+                <a href="../fdroid/repo/index-v1.jar" class="btn btn-secondary">
+                    <span class="icon">📦</span> F-Droid Repo
+                </a>
+                <a href="../obtainium-feed.json" class="btn btn-secondary">
+                    <span class="icon">📲</span> Obtainium Feed
+                </a>
+                <a href="https://github.com/RPDevs-Builds/APK_Build-Patch" class="btn btn-secondary" target="_blank">
+                    <span class="icon">🐙</span> GitHub Source
+                </a>
+            </div>
+        </header>
+
+        <!-- Controls Bar -->
+        <section class="controls-section">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Search applications, packages, or architectures...">
+            </div>
+
+            <div class="categories-bar" id="categoryFilters">
+                <button class="cat-pill active" data-category="All">All Apps</button>
+                <button class="cat-pill" data-category="Patched - ReVanced">ReVanced</button>
+                <button class="cat-pill" data-category="Patched - Morphe">Morphe</button>
+                <button class="cat-pill" data-category="Root Modules (Magisk/KSU)">Root Modules</button>
+                <button class="cat-pill" data-category="Open Source Tools">Open Source</button>
+            </div>
+        </section>
+
+        <!-- App Grid -->
+        <main class="apps-grid" id="appsGrid">
+            <div class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading application repository...</p>
+            </div>
+        </main>
+
+        <!-- QR Code Modal -->
+        <div class="modal-overlay" id="qrModal">
+            <div class="modal-card">
+                <button class="modal-close" id="closeModalBtn">&times;</button>
+                <h3 id="modalAppTitle">App QR Code</h3>
+                <p class="modal-sub">Scan with your Android camera to download directly</p>
+                <div class="qr-container">
+                    <img id="modalQrImg" src="" alt="Download QR Code">
+                </div>
+                <div class="hash-box">
+                    <span class="hash-label">SHA-256</span>
+                    <code id="modalSha256"></code>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Built with ❤️ by RPDevs-Builds • Powered by GitHub Actions & ReVanced CLI</p>
+        </footer>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

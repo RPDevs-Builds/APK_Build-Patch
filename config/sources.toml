@@ -1,0 +1,31 @@
+# ==============================================================================
+# RPDevs-Builds APK_Build-Patch - Sources & Fetcher Configuration
+# ==============================================================================
+
+# Priority order for fetching base APKs when multiple sources are configured
+[priorities]
+order = ["apkmirror", "playstore", "uptodown", "archive", "direct"]
+
+[apkmirror]
+base_url = "https://www.apkmirror.com"
+user_agent = "Mozilla/5.0 (X11; Linux x86_64; rv:148.0) Gecko/20100101 Firefox/148.0"
+request_timeout_seconds = 30
+max_retries = 3
+retry_delay_seconds = 2
+
+[playstore]
+# Options: "gplaycli", "apkeep", or "auto"
+backend = "auto"
+token_dispenser_url = "https://auroraoss.com/api/auth"
+device_codename = "bramble" # Pixel 4a (5G) / default clean Android device profile
+max_retries = 2
+timeout_seconds = 60
+
+[uptodown]
+base_url = "https://en.uptodown.com/android"
+user_agent = "Mozilla/5.0 (X11; Linux x86_64; rv:148.0) Gecko/20100101 Firefox/148.0"
+timeout_seconds = 30
+
+[archive]
+base_url = "https://archive.org/download"
+timeout_seconds = 45

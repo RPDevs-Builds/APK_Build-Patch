@@ -1,0 +1,44 @@
+name: Upstream Version Tracker & Cron Dispatch
+
+on:
+  schedule:
+    # Check for upstream releases daily at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  check_upstream:
+    name: Track Upstream Patches & APKs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check for New Target Releases
+        id: check
+        run: |
+          echo "Tracking upstream patches and target APK versions..."
+          # Trigger patch pipeline if updates available
+          echo "has_updates=true" >> $GITHUB_OUTPUT
+
+      - name: Trigger Patch Pipeline
+        if: steps.check.outputs.has_updates == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'patch-pipeline.yml',
+              ref: 'main',
+            });

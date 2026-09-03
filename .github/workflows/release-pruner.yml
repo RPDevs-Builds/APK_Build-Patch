@@ -1,0 +1,33 @@
+name: Release Retention & Pruning
+
+on:
+  schedule:
+    # Run monthly on the 1st
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  prune:
+    name: Prune Legacy Releases
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Execute Retention Pruner
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python -c "
+          from src.storage.release_publisher import ReleasePublisher
+          pub = ReleasePublisher()
+          pub.prune_old_releases()
+          "

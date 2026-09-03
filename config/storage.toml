@@ -1,0 +1,44 @@
+# ==============================================================================
+# RPDevs-Builds APK_Build-Patch - Ultimate Storage & Distribution Config
+# ==============================================================================
+
+[releases]
+github_repository = "RPDevs-Builds/APK_Build-Patch"
+tag_prefix = "v"
+release_title_template = "RPDevs APK Vault Build {tag} ({date})"
+prune_old_releases = true
+keep_recent_releases_count = 10
+
+[fdroid]
+enabled = true
+repo_name = "RPDevs APK Vault & Patcher"
+repo_description = "Automated nightly & release repository containing patched ReVanced/Morphe APKs, Magisk root modules, and open-source Android tools."
+repo_url = "https://rpdevs-builds.github.io/APK_Build-Patch/fdroid/repo"
+repo_icon = "web/assets/repo-icon.png"
+output_dir = "dist/fdroid"
+
+[obtainium]
+enabled = true
+feed_name = "RPDevs APK Vault Feed"
+output_file = "dist/obtainium-feed.json"
+
+[web_portal]
+enabled = true
+title = "RPDevs APK Vault & Distribution Portal"
+output_dir = "dist/web"
+include_qr_codes = true
+enable_search = true
+categories = [
+    "All",
+    "Patched - ReVanced",
+    "Patched - Morphe",
+    "Patched - Extended",
+    "Open Source Tools",
+    "Root Modules (Magisk/KSU)"
+]
+
+[notifications]
+telegram_enabled = false
+telegram_chat_id = ""
+discord_enabled = false
+discord_webhook_url = ""

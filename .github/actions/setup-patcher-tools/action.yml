@@ -1,0 +1,20 @@
+name: "Setup Patcher Tools & Prebuilts"
+description: "Caches and prepares APKEditor, paccer, apksigner, and keystores"
+runs:
+  using: "composite"
+  steps:
+    - name: Cache Prebuilts & JARs
+      uses: actions/cache@v4
+      with:
+        path: |
+          bin/*.jar
+          temp/prebuilts
+        key: patcher-tools-v1-${{ runner.os }}
+        restore-keys: |
+          patcher-tools-v1-
+
+    - name: Ensure Tool Binaries Executable
+      shell: bash
+      run: |
+        chmod +x bin/aapt2/* bin/htmlq/* bin/toml/* 2>/dev/null || true
+        mkdir -p temp/prebuilts dist/apks

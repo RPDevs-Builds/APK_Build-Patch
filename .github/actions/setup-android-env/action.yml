@@ -1,0 +1,27 @@
+name: "Setup Android Build Environment"
+description: "Configures Java, Android SDK, AAPT2, and build tools for APK compilation and patching"
+inputs:
+  java-version:
+    description: "Java JDK version (17, 21, 25)"
+    required: false
+    default: "21"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Java JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: "temurin"
+        java-version: ${{ inputs.java-version }}
+
+    - name: Set up Android SDK Command-line Tools
+      uses: android-actions/setup-android@v3
+
+    - name: Install Android Build-Tools & Platform Tools
+      shell: bash
+      run: |
+        sdkmanager --install "build-tools;34.0.0" "platforms;android-34" "platform-tools"
+        echo "ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
+        echo "ANDROID_SDK_ROOT=$ANDROID_HOME" >> $GITHUB_ENV
+        echo "$ANDROID_HOME/build-tools/34.0.0" >> $GITHUB_PATH
